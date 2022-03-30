@@ -49,6 +49,12 @@ RUN set -x && apt-get --yes --no-install-recommends install \
     pixz \
     zstd
 
+RUN set -x && apt-get --yes --no-install-recommends install \
+    etcd-client \
+    mariadb-client \
+    postgresql-client \
+    redis-tools
+
 ARG MONGODB_VERSION=5.0
 ARG MONGOSH_VERSION=1.3.1
 ARG AWSCLI_VERSION=2.5.1
@@ -60,12 +66,8 @@ RUN set -x \
 ARG TARGETPLATFORM
 
 RUN set -x && apt-get update && apt-get --yes --no-install-recommends install \
-    etcd-client \
-    mariadb-client \
     mongodb-mongosh=${MONGOSH_VERSION} \
     $( [ "$TARGETPLATFORM" = "linux/amd64" ] && echo mongodb-database-tools) \
-    postgresql-client \
-    redis-tools \
     && rm -rvf /var/lib/apt/lists/*
 
 RUN set -x \
