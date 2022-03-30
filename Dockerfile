@@ -41,6 +41,8 @@ RUN set -x && apt-get update && apt-get --yes --no-install-recommends install \
     wget
 
 RUN set -x && apt-get --yes --no-install-recommends install \
+    zip \
+    unzip \
     gzip \
     pigz \
     bzip2 \
