@@ -40,6 +40,15 @@ RUN set -x && apt-get update && apt-get --yes --no-install-recommends install \
     vim-tiny \
     wget
 
+RUN set -x && apt-get --yes --no-install-recommends install \
+    gzip \
+    pigz \
+    bzip2 \
+    pbzip2 \
+    xz-utils \
+    pixz \
+    zstd
+
 ARG MONGODB_VERSION=5.0
 ARG MONGOSH_VERSION=1.3.1
 
