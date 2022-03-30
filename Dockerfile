@@ -1,0 +1,63 @@
+FROM debian:bullseye-20220328-slim
+
+LABEL org.opencontainers.image.title="RTSP Network Tools"
+LABEL org.opencontainers.image.authors="RTSP <docker@rtsp.us>"
+LABEL org.opencontainers.image.source="https://github.com/rtsp/docker-net-tools"
+LABEL org.opencontainers.image.licenses="Apache-2.0"
+
+RUN set -x && apt-get update && apt-get --yes --no-install-recommends install \
+    bash \
+    ca-certificates \
+    bind9-host \
+    coreutils \
+    curl \
+    diffutils \
+    dnsutils \
+    ftp \
+    git \
+    gnupg \
+    grep \
+    ipmitool \
+    iproute2 \
+    iputils-arping \
+    iputils-ping \
+    jq \
+    less \
+    mawk \
+    nano \
+    net-tools \
+    netcat-openbsd \
+    nmap \
+    openssh-client \
+    openssl \
+    rsync \
+    sed \
+    socat \
+    telnet \
+    tftp \
+    traceroute \
+    util-linux \
+    vim-tiny \
+    wget
+
+ARG MONGODB_VERSION=5.0
+ARG MONGOSH_VERSION=1.3.1
+
+RUN set -x \
+    && curl -fsSL https://www.mongodb.org/static/pgp/server-${MONGODB_VERSION}.asc | gpg --dearmor -o /etc/apt/trusted.gpg.d/mongodb-org-${MONGODB_VERSION}.gpg \
+    && echo "deb https://repo.mongodb.org/apt/debian buster/mongodb-org/${MONGODB_VERSION} main" > /etc/apt/sources.list.d/mongodb-org-${MONGODB_VERSION}.list
+
+ARG TARGETPLATFORM
+
+RUN set -x && apt-get update && apt-get --yes --no-install-recommends install \
+    etcd-client \
+    mariadb-client \
+    mongodb-mongosh=${MONGOSH_VERSION} \
+    $( [ "$TARGETPLATFORM" = "linux/amd64" ] && echo mongodb-database-tools) \
+    postgresql-client \
+    redis-tools \
+    && rm -rvf /var/lib/apt/lists/*
+
+COPY files/ /root/
+
+CMD ["/bin/sleep", "365d"]
