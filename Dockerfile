@@ -51,6 +51,7 @@ RUN set -x && apt-get --yes --no-install-recommends install \
 
 ARG MONGODB_VERSION=5.0
 ARG MONGOSH_VERSION=1.3.1
+ARG AWSCLI_VERSION=2.5.1
 
 RUN set -x \
     && curl -fsSL https://www.mongodb.org/static/pgp/server-${MONGODB_VERSION}.asc | gpg --dearmor -o /etc/apt/trusted.gpg.d/mongodb-org-${MONGODB_VERSION}.gpg \
@@ -66,6 +67,14 @@ RUN set -x && apt-get update && apt-get --yes --no-install-recommends install \
     postgresql-client \
     redis-tools \
     && rm -rvf /var/lib/apt/lists/*
+
+RUN set -x \
+    && mkdir -p /tmp/awscli && cd /tmp/awscli \
+    && curl "https://awscli.amazonaws.com/awscli-exe-linux-$( [ "$TARGETPLATFORM" = "linux/amd64" ] && echo x86_64 || echo aarch64 )-${AWSCLI_VERSION}.zip" -o awscliv2.zip \
+    && unzip -q awscliv2.zip \
+    && ./aws/install \
+    && rm -rf /tmp/awscli \
+    && /usr/local/bin/aws --version
 
 COPY files/ /root/
 
