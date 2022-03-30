@@ -1,6 +1,6 @@
 # RTSP Tools
 
-Debian with basic network tools included.
+Debian with personalized tools for various purpose.
 
 
 ## Usage
@@ -120,6 +120,52 @@ or if you don't mind which Pod to use
 
 ```ShellSession
 kubectl exec -it daemonset/rtsp -- bash
+```
+
+
+### Run as Kubernetes StatefulSet
+
+This manifests will deploy a Pod with a 4 GiB persistent storage mounted on `/data`.
+
+```yaml
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: rtsp
+spec:
+  serviceName: rtsp
+  replicas: 1
+  selector:
+    matchLabels:
+      name: rtsp
+  template:
+    metadata:
+      labels:
+        name: rtsp
+    spec:
+      containers:
+        - name: rtsp
+          image: rtsp/rtsp:latest
+          imagePullPolicy: Always
+          resources:
+            requests:
+              memory: 8Mi
+              cpu: 10m
+            limits:
+              memory: 1024Mi
+              cpu: 2000m
+          volumeMounts:
+            - name: rtsp-data
+              mountPath: /data
+  volumeClaimTemplates:
+  - metadata:
+      name: rtsp-data
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 4Gi
 ```
 
 
