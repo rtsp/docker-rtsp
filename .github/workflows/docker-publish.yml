@@ -3,10 +3,7 @@ name: Publish Docker image
 on:
   release:
     types: [published]
-  workflow_dispatch:
-    inputs:
-      tag:
-        required: false
+  workflow_dispatch: {}
 
 jobs:
   push_to_registries:
