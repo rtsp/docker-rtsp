@@ -58,8 +58,8 @@ RUN set -x && apt-get --yes --no-install-recommends install \
     redis-tools
 
 ARG MONGODB_VERSION=5.0
-ARG MONGOSH_VERSION=1.3.1
-ARG AWSCLI_VERSION=2.5.1
+ARG MONGOSH_VERSION=1.5.0
+ARG AWSCLI_VERSION=2.7.11
 
 RUN set -x \
     && curl -fsSL https://www.mongodb.org/static/pgp/server-${MONGODB_VERSION}.asc | gpg --dearmor -o /etc/apt/trusted.gpg.d/mongodb-org-${MONGODB_VERSION}.gpg \
