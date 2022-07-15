@@ -58,7 +58,7 @@ RUN set -x && apt-get --yes --no-install-recommends install \
     redis-tools
 
 ARG MONGODB_VERSION=5.0
-ARG MONGOSH_VERSION=1.5.0
+ARG MONGOSH_VERSION=1.5.1
 ARG AWSCLI_VERSION=2.7.14
 
 RUN set -x \
