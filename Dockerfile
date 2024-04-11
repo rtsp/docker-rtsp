@@ -6,7 +6,7 @@ LABEL org.opencontainers.image.source="https://github.com/rtsp/docker-rtsp"
 LABEL org.opencontainers.image.licenses="Apache-2.0"
 
 ARG MONGODB_VERSION=6.0
-ARG MONGOSH_VERSION=2.1.3
+ARG MONGOSH_VERSION=2.2.3
 ARG AWSCLI_VERSION=2.15.14
 
 RUN set -x \
