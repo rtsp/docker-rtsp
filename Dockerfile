@@ -7,7 +7,7 @@ LABEL org.opencontainers.image.licenses="Apache-2.0"
 
 ARG MONGODB_VERSION=6.0
 ARG MONGOSH_VERSION=2.2.9
-ARG AWSCLI_VERSION=2.16.9
+ARG AWSCLI_VERSION=2.17.61
 
 RUN set -x \
     && curl -fsSL https://www.mongodb.org/static/pgp/server-${MONGODB_VERSION}.asc | gpg --dearmor -o /etc/apt/trusted.gpg.d/mongodb-org-${MONGODB_VERSION}.gpg \
