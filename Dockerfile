@@ -1,4 +1,4 @@
-FROM rtsp/net-tools:1.4.36
+FROM rtsp/net-tools:1.4.43
 
 LABEL org.opencontainers.image.title="RTSP Tools"
 LABEL org.opencontainers.image.authors="RTSP <docker@rtsp.us>"
